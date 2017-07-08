@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="referrer" content="no-referrer">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+    <div id="musicPlayer">
+        <div class="musicPlayer">
+            <div id="shrink-expand">
+                <div id="header">
+                    <div class="container">
+                        <h2 id="music-title">Music Player</h2>
+                        <form id="search">
+                            <!-- <label for="searchSong">搜索</label> -->
+                            <div class="search-ct">
+                                <input type="text" id="searchSong" placeholder="搜索">
+                                <a href="javascript:;" class="searchSong">搜一下</a>
+                            </div>
+                            <span class="SongResult">
+                                <strong class="resultTitle"></strong>
+                                <strong class="resultArtist"></strong>
+                                <a href="javascript:;" class="resultPlay">立即播放</a>
+                                <a href="javascript:;" class="disappear">X</a>
+                            </span>
+                        </form>
+                        <button class="max-min">
+                            <svg class="icon" aria-hidden="true">
+                                <use xlink:href="#icon-zuixiaohua"></use>
+                            </svg>
+                        </button>
+                        <div class="set">
+                            <div>
+                                <button class="autoPlay">autoPlay</button>
+                            </div>
+                            <div>
+                                <button class="src">src</button>
+                                <input type="text" name="src">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="content">
+                    <div class="container">
+                        <div class="music">
+                            <audio id="music">你的浏览器不支持喔！</audio>
+                            <div id="music-ct">
+                                <div id="music-tab">
+                                    <!-- <div id="song-ct">
+                                    </div> -->
+                                </div>
+                                <div id="mes-ct">
+                                    <div class="con-mes">
+                                        <div id="disco">
+                                            <div class="needle"></div>
+                                            <div class="disco">
+                                                <div class="disco-cover"></div>
+                                                <div class="disco-img"></div>
+                                            </div>
+                                        </div>
+                                        <div id="mes-content">
+                                            <h4 class="title"></h4>
+                                            <h4 class="artist"></h4>
+                                        </div>
+                                    </div>
+                                    <div class="showMusic hidden">
+                                        <div class="lyric">
+                                            <div class="lyric-view">
+                                                <ul class="lyric-ct">
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <div class="visualization hidden">
+                                            <canvas id="canvasVoice" class="canvas">你的浏览器不支持喔！</canvas>
+                                        </div>
+                                    </div>
+                                    <div class="Musicmenu">
+                                        <button class="showLyrics icons">
+                                            <svg class="icon" aria-hidden="true">
+                                                <use xlink:href="#icon-gecidiaozheng"></use>
+                                            </svg>
+                                        </button>
+                                        <a class="icons share" href="http://service.weibo.com/share/share.php?title=#_loginLayer_1466697157538" target="new">
+                                            <svg class="icon" aria-hidden="true">
+                                                <use xlink:href="#icon-fenxiang"></use>
+                                            </svg>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="footer">
+                <div class="container">
+                    <div id="control">
+                        <button class="pre icons">
+                            <svg class="icon" aria-hidden="true">
+                                <use xlink:href="#icon-prev"></use>
+                            </svg>
+                        </button>
+                        <button class="play-pause icons">
+                            <svg class="icon" aria-hidden="true">
+                                <use xlink:href="#icon-bofang"></use>
+                            </svg>
+                        </button>
+                        <button class="next icons">
+                            <svg class="icon" aria-hidden="true">
+                                <use xlink:href="#icon-next"></use>
+                            </svg>
+                        </button>
+                        <button class="loop icons">
+                            <svg class="icon" aria-hidden="true">
+                                <use xlink:href="#icon-shunxubofang"></use>
+                            </svg>
+                        </button>
+                        <button class="only icons">
+                            <svg class="icon" aria-hidden="true">
+                                <use xlink:href="#icon-iconfonthaofang26-copy"></use>
+                            </svg>
+                        </button>
+                        <a class="share icons" href="http://service.weibo.com/share/share.php?title=#_loginLayer_1466697157538" target="new">
+                            <svg class="icon" aria-hidden="true">
+                                <use xlink:href="#icon-fenxiang"></use>
+                            </svg>
+                        </a>
+                        <div id="volume">
+                            <span class="mute icons">
+                                <svg class="icon" aria-hidden="true">
+                                    <use xlink:href="#icon-jingyin"></use>
+                                </svg>
+                            </span>
+                            <span class="volume">
+                            <span class="sound "></span>
+                            <span class="soundPoint"></span>
+                            </span>
+                        </div>
+                        <div id="progress">
+                            <div class="pro-mes">
+                                <span class="title"></span>
+                                <span class="artist"></span>
+                            </div>
+                            <div class="time">
+                                <span class="duration"></span> /
+                                <span class="currentTime"></span>
+                            </div>
+                            <div class="progress">
+                                <span class="meter"></span>
+                                <span class="meterPoint"></span>
+                            </div>
+                            <span class="min duration"></span>
+                            <span class="min currentTime"></span>
+                        </div>
+                        <button id="show-song" class="icons">
+                            <svg class="icon" aria-hidden="true">
+                                <use xlink:href="#icon-caidan"></use>
+                            </svg>
+                        </button>
+                    </div>
+                    <div id="mes-ct">
+                        <div class="con-mes">
+                            <div id="disco">
+                                <div class="needle"></div>
+                                <div class="disco">
+                                    <div class="disco-cover"></div>
+                                    <div class="disco-img"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="min-control">
+                            <button class="play-pause icons">
+                                <svg class="icon" aria-hidden="true">
+                                    <use xlink:href="#icon-bofang"></use>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                    <div id="super-min">
+                        <button class="super-min icons">
+                            <svg class="icon" aria-hidden="true">
+                                <use xlink:href="#icon-sanjiaozuo"></use>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="./js/dist/webpack.merge.js"></script>
+</body>
+
+</html>

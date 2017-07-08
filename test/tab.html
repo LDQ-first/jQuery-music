@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>tab组件学习</title>
+    <style>
+    * {
+        box-sizing: border-box;
+    }
+    
+    #root {
+        margin: auto;
+        width: 600px;
+        border-radius: 20px;
+        padding: 20px;
+    }
+    
+    .tab-header {
+        border-bottom: 1px solid #ccc;
+    }
+    
+    .tab-header.clearfix:after {
+        content: "";
+        display: block;
+        clear: both;
+    }
+    
+    .tab-header [class*="tab-item"] {
+        float: left;
+        color: brown;
+        border: 1px solid #fff;
+        border-bottom: 1px solid #fff;
+        padding: 10px 20px;
+        cursor: pointer;
+    }
+    
+    .tab-header .active {
+        position: relative;
+        bottom: -1px;
+        border: 1px solid #ccc;
+        border-bottom-color: #fff;
+        border-radius: 4px 4px 0 0;
+        color: #333;
+    }
+    
+    .tab-body {
+        padding: 20px 10px;
+    }
+
+    #song {
+        width: 50%;
+        position: absolute;
+        background: #C0F8C1;
+        opacity: 0;
+        z-index: 1;
+        transition: all 0.8s ease-in-out;
+    }
+
+    #channel {
+        width: 50%;
+        position: absolute;
+        background: #C0D7F8;
+        opacity: 0;
+        z-index: 1;
+        transition: all 0.8s ease-in-out;
+    }
+    </style>
+</head>
+
+<body>
+    <div id='root'></div>
+    <script src="jquery-3.1.1.min.js"></script>
+    <script type="text/javascript">
+
+    var songTab = (function() {
+        var TabBaseConfig = {
+            /*存储tab
+             *每一项{ tabName:'tab1',tabContent:'html字符串' }
+             */
+            tabList: [],
+            //首屏展示的tab
+            indexTab: 0
+        }
+
+        var TabFactorty = function(tabConfig) {
+            var tabConfig = Object.assign({}, TabBaseConfig, tabConfig);
+            //tab数组
+            this.tabList = tabConfig.tabList;
+            //当前激活的tab 序数
+            this.activeTab = tabConfig.indexTab;
+            //渲染的目标dom节点
+            this.targetDom = null;
+        }
+
+        TabFactorty.prototype.layoutRender = function() {
+            var tabListString = this.tabList.map(function(tab, index) {
+                return ['<div class="tab-item-' + index + ' ">', tab.tabName, '</div>'].join('');
+            }).join('');
+            console.log(tabListString);
+            return ['<div class="tab-header clearfix">', tabListString,
+                '</div><div class="tab-body"></div>'
+            ].join('');
+        };
+
+        //获取元素
+        TabFactorty.prototype.getElement = function(name) {
+            if (name.match(/^#/)) {
+                return document.getElementById(name.replace(/^#/, ''))[0];
+            } else if (name.match(/^\./)) {
+                return document.getElementsByClassName(name.replace(/^\./, ''))[0];
+            } else {
+                return document.getElementsByTagName(name)[0];
+            }
+        }
+
+
+        //渲染对应序数号的元素样式
+        TabFactorty.prototype.indexRender = function(index) {
+            var targetTab = this.tabList[index];
+            var tabBody = this.getElement(".tab-body");
+            //tabBody.innerHTML += targetTab['tabContent'];
+            tabBody.appendChild( targetTab['tabContent'][0]);
+        }
+
+        TabFactorty.prototype.showList = function(index) {
+            var targetTab = this.tabList[index];
+            var tabBody = this.getElement(".tab-body");
+            var tabHeader = this.getElement(".tab-item-" + index);
+            var previouseTab = this.getElement(".tab-item-" + this.activeTab);
+             tabBody.childNodes.forEach(function(cN, idx) {
+                cN.style.opacity = '0';
+                cN.style.zIndex = '1'
+            });
+            tabBody.childNodes[index].style.opacity = '1';
+            tabBody.childNodes[index].style.zIndex = '2';
+            tabHeader.classList.add('active');
+            if (index != this.activeTab) {
+                previouseTab.classList.remove('active');
+                this.activeTab = index;
+            }
+
+        }
+
+
+        //挂载事件
+        TabFactorty.prototype.events = function() {
+            var _this = this;
+            _this.tabList.forEach(function(tab, index) {
+                _this.getElement('.tab-item-' + index).addEventListener('click', function() {
+                    _this.showList(index);
+                })
+            })
+        };
+
+
+        //程序入口
+        TabFactorty.prototype.renderTo = function(targetDom) {
+            targetDom.innerHTML = this.layoutRender();
+            this.targetDom = targetDom;
+            for(var i = 0; i <  this.tabList.length; i ++){
+                this.indexRender(i);
+            }
+            this.showList(this.activeTab);
+            this.events(targetDom);
+        };
+
+        return {
+            TabFactorty: TabFactorty
+        }
+    })()
+
+
+
+    //测试
+    var targetDom = document.getElementById('root');
+    var channel = $('<div id="channel"><div class="channelList"><ul class="channel-ct"></ul></div></div>');
+    var song = $('<div id="song"><div class="songList"><ul class="song-ct"></ul></div></div>');
+    var tabList = [{
+        tabName: '分类',
+        tabContent: channel
+    },{
+        tabName: '歌曲列表',
+        tabContent: song
+    }];
+    // 生成实例
+    var tabContainer = new songTab.TabFactorty({
+        tabList: tabList
+    });
+    // 渲染到dom节点
+    tabContainer.renderTo(targetDom)
+    </script>
+</body>
+
+</html>

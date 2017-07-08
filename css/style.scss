@@ -1,0 +1,1603 @@
+$s-screen: 480px; //适配手机
+$m-screen: 580px; //适配ipad
+$b-screen: 1024px; //适配PC
+$kf: keyframes;
+@mixin keyframes($animatioinName) {
+    @-webkit-keyframes #{$animatioinName} {
+        @content;
+    }
+    @keyframes #{$animatioinName} {
+        @content;
+    }
+}
+
+h2,
+h4 {
+    margin: 0;
+}
+
+ul {
+    margin: 0;
+    padding: 0;
+}
+
+li {
+    list-style: none;
+}
+
+a {
+    text-decoration: none;
+}
+
+.clearfix::after {
+    content: '';
+    display: block;
+    clear: both;
+}
+
+button {
+    cursor: pointer;
+    border: none;
+    outline: none;
+    padding: 0;
+}
+
+input {
+    border: none;
+}
+
+input::-webkit-input-placeholder,
+textarea::-webkit-input-placeholder {
+    color: #FFF;
+}
+
+input:-moz-placeholder,
+textarea:-moz-placeholder {
+    color: #FFF;
+}
+
+input::-moz-placeholder,
+textarea::-moz-placeholder {
+    color: #FFF;
+}
+
+input:-ms-input-placeholder,
+textarea:-ms-input-placeholder {
+    color: #FFF;
+}
+
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    border-radius: 10px;
+    background-color: rgba(25, 147, 147, 0.4);
+}
+
+::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background-color: rgba(25, 147, 147, 1);
+}
+
+.icon {
+    width: 1em;
+    height: 1em;
+    vertical-align: -0.15em;
+    fill: currentColor;
+    overflow: hidden;
+}
+
+.icons {
+    background: transparent;
+    z-index: 10;
+    color: #0078dd;
+    font-size: 25px;
+    width: 25px;
+    height: 25px;
+    position: absolute;
+}
+
+body {
+    margin: 0;
+    @media screen and (max-width: $m-screen) {
+        & {
+            height: 100%;
+        }
+    }
+}
+
+#music {
+    display: none;
+}
+
+
+/* #Player {
+    position: fixed;
+    bottom: 30px;
+    z-index: 20;
+    border: 2px solid red;
+    overflow: hidden;
+    @media screen and (min-width: $b-screen) {
+        & {
+            width: 550px;
+            height: 544px;
+        }
+    }
+    @media screen and (min-width: $m-screen) and (max-width: $b-screen) {
+        & {
+            width: 510px;
+            height: 574px;
+        }
+    }
+    
+} */
+
+
+#musicPlayer {
+    position: fixed;
+    bottom: 30px;
+    z-index: 10;
+    @media screen and (max-width: $m-screen) {
+        & {
+            width: 100%;
+            bottom: 0px;
+            height: 100%;
+        }
+    }
+    &.min {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        margin-left: -290px;
+        margin-top: -61px
+    }
+    &.super-min {
+        animation: superMin 1s ease-in-out forwards;
+        @include keyframes(superMin) {
+            0% {
+                transform: translateX(-100%);
+            }
+            100% {
+                transform: translateX(-80%);
+            }
+        }
+    }
+}
+
+.musicPlayer {
+    position: relative;
+    background: rgba(23, 164, 213, 0.8);
+    background-image: linear-gradient(-45deg, #B1EFD6, #3DAABF);
+    background-attachment: fixed;
+    min-width: 320px;
+    min-height: 80px;
+    &::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        z-index: 1;
+        background: inherit;
+        margin: -30px;
+        filter: blur(6px) saturate(1.5) brightness(0.7);
+    }
+     @media screen and (min-width: $m-screen) {
+        &::before {
+             display: none;
+        }
+    }
+    @media screen and (max-width: $m-screen) {
+        & {
+            width: 100%;
+            height: 100%;
+            box-sizing: border-box;
+            
+        }
+    }
+}
+
+.container {
+    @media screen and (min-width: $b-screen) {
+        & {
+            width: 530px;
+            margin: 0 auto;
+        }
+    }
+    @media screen and (min-width: $m-screen) and (max-width: $b-screen) {
+        & {
+            width: 490px;
+            margin: 0 auto;
+        }
+    }
+    @media screen and (max-width: $m-screen) {
+        & {
+            width: 100%;
+            height: 100%;
+            box-sizing: border-box;
+        }
+
+    }
+    &.min {
+        width: 510px;
+        margin: 0 auto;
+    }
+}
+
+#shrink-expand {
+    position: absolute;
+    transform: translateY(-100%);
+    background: rgba(23, 164, 213, 0.8);
+    background-image: linear-gradient(135deg, #00C4FF, #9D1BB2);
+    background-attachment: fixed;
+    padding: 10px;
+    overflow: hidden;
+    z-index: 2;
+    box-shadow: 5px -5px 10px #666;
+    min-width: 320px;  
+    &::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        background: inherit;
+        z-index: -1;
+        margin: -30px;
+        filter: blur(6px) saturate(1.5) brightness(0.7);
+    }
+    @media screen and (max-width: $m-screen) {
+        & {
+            width: 100%;
+            top: 80%;
+            height: 80%;
+            box-sizing: border-box;
+            box-shadow: none;
+            min-height: 410px;
+        }
+        &::before {
+            bottom: -25%;
+        }
+    }
+    @media screen and (min-width: $b-screen) {
+        &::before {
+            bottom: -90px;
+        }
+    }
+    @media screen and (min-width: $m-screen) and (max-width: $b-screen) {
+        &::before {
+            bottom: -110px;
+        }
+    }
+   
+}
+
+#header {
+    box-sizing: border-box;
+    #music-title {
+        text-align: center;
+        border-bottom: 2px solid rgba(0, 120, 221, 1);
+        padding: 5px;
+        color: rgba(255, 255, 255, 1);
+        text-shadow: 0 0 2px #CCC;
+        @media screen and (max-width: $m-screen) {
+            & {
+                font-size: 16px;
+                height: 10%;
+            }
+        }
+    }
+}
+
+#search {
+    display: inline-block;
+    vertical-align: middle;
+    font-size: 14px;
+    overflow: hidden;
+    padding: 10px;
+    height: 45px;
+    box-sizing: border-box;
+    @media screen and (min-width: $m-screen) {
+        & {
+            width: 450px;
+        }
+    }
+    @media screen and (max-width: $m-screen) {
+        & {
+            width: 200%;
+            padding: 5px;
+            height: 35px;
+        }
+    }
+    .search-ct {
+        transition: all 0.5s ease-in-out;
+        display: inline-block;
+        width: 90%;
+        @media screen and (max-width: $m-screen) {
+            & {
+                width: 50%;
+            }
+        }
+        #searchSong {
+            outline: none;
+            padding: 5px 10px;
+            background: rgba(0, 120, 221, 0.5);
+            border-top-left-radius: 5px;
+            border-bottom-left-radius: 5px;
+            width: 70%;
+            box-shadow: 0 0 10px rgba(0, 120, 221, 1);
+            color: #FFF;
+        }
+        .searchSong {
+            display: inline-block;
+            color: #FFF;
+            padding: 5px 10px;
+            border-top-right-radius: 5px;
+            border-bottom-right-radius: 5px;
+            border-left: none;
+            margin-left: -6px;
+            background: rgba(103, 221, 171, 1);
+            text-align: center;
+            width: 16%;
+            box-shadow: 0 0 10px rgba(103, 221, 171, 1);
+        }
+        &.search {
+            transform: translateX(-500%);
+        }
+    }
+    .SongResult {
+        display: inline-block;
+        position: absolute;
+        color: #003F98;
+        padding: 5px 10px;
+        border-radius: 5px;
+        background: rgba(255, 255, 255, 0.5);
+        transform: translateX(1000%);
+        transition: all 0.5s ease-in-out;
+        width: 80%;
+        &.appear {
+            transform: translateX(-88%);
+            @media screen and (max-width: $m-screen) {
+                & {
+                    transform: translateX(-108%);
+                }
+            }
+        }
+        .resultTitle,
+        .resultArtist {
+            display: inline-block;
+            vertical-align: middle;
+            width: 30%;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            overflow: hidden;
+        }
+        .resultPlay {
+            display: inline-block;
+            vertical-align: middle;
+            color: #f75900;
+            height: 16px;
+            width: 22%;
+            text-align: center;
+        }
+        .disappear {
+            display: inline-block;
+            vertical-align: middle;
+            color: rgba(59, 200, 243, 1);
+            width: 12%;
+            text-align: center;
+        }
+    }
+}
+
+.max-min {
+    float: right;
+    margin: 8px 10px 10px 0;
+    background: transparent;
+    width: 20px;
+    height: 20px;
+    font-size: 20px;
+    color: rgba(59, 200, 243, 1);
+    display: none;
+    cursor: pointer;
+    @media screen and (min-width: $m-screen) {
+        & {
+            display: block;
+        }
+    }
+}
+
+.set {
+    float: right;
+    display: none;
+}
+
+#content {
+    width: inherit;
+    box-sizing: border-box;
+    @media screen and (max-width: $m-screen) {
+        & {
+            height: 85%;
+        }
+    }
+    .music {
+        position: relative;
+        height: 350px;
+        overflow: hidden;
+        #music-ct {
+            height: 100%;
+        }
+        @media screen and (max-width: $m-screen) {
+            & {
+                height: 100%;
+            }
+        }
+    }
+}
+
+#music-tab {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+    @media screen and (max-width: $m-screen) {
+        & {
+            display: none;
+        }
+    }
+    &>.tab-header {
+        position: absolute;
+        width: 100%;
+        border-bottom: 2px solid #5389DF;
+        & [class*="tab-item"] {
+            width: 33%;
+            box-sizing: border-box;
+            display: inline-block;
+            border-bottom: 1px solid transparent;
+            padding: 10px 20px;
+            text-align: center;
+            cursor: pointer;
+            color: #FFF;
+            font-weight: bold;
+        }
+        & .active {
+            position: relative;
+            bottom: -2px;
+            border-bottom: 4px solid #F56B1D;
+            background: rgba(255, 255, 255, 0.1);
+            color: #FF3F00;
+        }
+    }
+    .tab-body {
+        position: absolute;
+        top: 46px;
+        left: 0px;
+        height: 85%;
+        width: 66%;
+    }
+}
+
+.showMusic {
+    position: absolute;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    z-index: 1;
+    transition: all 0.8s ease-in-out;
+    .lyric {
+        width: 100%;
+        height: 100%;
+        box-sizing: border-box;
+        padding: 20px 0;
+        margin-bottom: 10px;
+        &::before {
+            content: '';
+            display: block;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 111, 204, 0.5);
+        }
+        .lyric-view {
+            height: inherit;
+            overflow-y: scroll;
+            overflow-x: hidden;
+            .lyric-ct {
+                position: relative;
+                box-sizing: border-box;
+                width: inherit;
+                height: inherit;
+                text-align: center;
+                z-index: 1;
+                transition: all 0.3s ease;
+                li {
+                    color: #FFF;
+                    padding: 5px 0;
+                    margin: 2px 0;
+                    transition: all 0.3s linear;
+                    &.active {
+                        color: rgba(247, 89, 0, 1);
+                        font-weight: bold;
+                    }
+                }
+            }
+        }
+    }
+    .visualization {
+        /*   position: absolute;
+        right: 0px;
+        bottom: 
+        border: 2px solid red;
+        width: 300px;
+        height: 340px;
+        overflow: hidden; */
+        display: none;
+        border: 2px solid red;
+    }
+}
+
+#song-ct {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    z-index: -1;
+    transition: all 0.8s ease-in-out;
+    &>.tab-header {
+        position: absolute;
+        width: 90%;
+        box-sizing: border-box;
+        padding: 0 20px;
+        font-weight: bold;
+        & [class*="tab-item"] {
+            width: 40%;
+            box-sizing: border-box;
+            display: inline-block;
+            padding: 10px 0 5px 0;
+            text-align: center;
+            cursor: pointer;
+            position: relative;
+            color: #FFF;
+            &::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                bottom: 0;
+                right: 0;
+                z-index: -1;
+                background: #FFB966;
+                border: 2px solid #0078DD;
+                border-bottom: none;
+                border-radius: 8px 8px 0 0;
+                transform: scaleY(1.3) perspective(10px) rotateX(5deg);
+                transform-origin: bottom 5%;
+            }
+        }
+        & .active {
+            color: #0058DF;
+            bottom: -2px;
+            z-index: 1;
+            &::before {
+                border: 2px solid #5389DF;
+                border-bottom: none;
+                background: #53BADF;
+            }
+        }
+    }
+    .tab-body {
+        position: absolute;
+        top: 41px;
+        left: 0px;
+        height: 83%;
+        width: 100%;
+        box-sizing: border-box;
+        border: 2px solid #5389DF;
+        border-radius: 10px;
+        background: #53BADF;
+        background-image: linear-gradient(135deg, #A565EA, #1dcff1);
+        &.active {
+            border-top: none;
+        }
+        @media screen and (max-width: $m-screen) {
+            & {
+                border-bottom-left-radius: 0px;
+                border-bottom-right-radius: 0px;
+            }
+        }
+    }
+}
+
+.songs-ct {
+    @extend #song-ct;
+    transition: all 1.2s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+    height: 250%;
+    z-index: 100;
+    #song-close {
+        width: 100%;
+        height: 40px;
+        border: 2px solid #5389DF;
+        border-top: none;
+        box-sizing: border-box;
+        background: #2b97ff; 
+        position: absolute;
+        bottom: 0px;
+        left: 0px;
+        cursor: pointer;
+        z-index: 10;
+        border-bottom-left-radius: 8px;
+        border-bottom-right-radius: 8px;
+        box-shadow: 0 0 15px #2b97ff;
+        cursor: pointer;
+        &:hover {
+            &::before,
+            &::after {
+                background: #ee5715;
+            }
+            &::before {
+                transform: rotateZ(405deg);
+            }
+            &::after {
+                transform: rotateZ(315deg);
+            }
+        }
+        &::before,
+        &::after {
+            content: '';
+            display: inline-block;
+            width: 5px;
+            height: 20px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            margin-left: -2.5px;
+            margin-top: -10px;
+            background: #FFF;
+            transition: all 0.8s ease-in-out;
+        }
+        &::before {
+            transform: rotateZ(45deg);
+        }
+        &::after {
+            transform: rotateZ(-45deg);
+        }
+    }
+}
+
+.channel {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    box-sizing: border-box;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    opacity: 0;
+    z-index: 1;
+    transition: all 0.8s ease-in-out;
+    .channelList {
+        .channel-ct {
+            height: 300px;
+            border-radius: 8px;
+            border-top-right-radius: 0px;
+            .channel-li {
+                padding: 20px;
+                cursor: pointer;
+                text-align: center;
+                color: #0009DF;
+                border-bottom: 2px solid rgba(0, 88, 223, 0.5);
+                &.active {
+                    background: rgba(63, 81, 217, 1);
+                    box-shadow: 0 0 4px 4px rgba(0, 88, 223, 0.5);
+                    transform: perspective(1000px) translateZ(50px);
+                    color: #FFF;
+                }
+            }
+        }
+    }
+}
+
+.song {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    box-sizing: border-box;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    opacity: 0;
+    z-index: 100;
+    transition: all 0.8s ease-in-out;
+    .songList {
+        height: 300px;
+        .songMenu {
+            padding: 10px 20px;
+            height: 40px;
+            color: #FFF;
+            background: #AD5FFF;
+            border-top-left-radius: 8px;
+            .songNum {
+                // display: inline-block;
+                // width: 40%;
+                //  height: 100%;
+                margin-right: 10px;
+            }
+            .songClear {
+                display: inline-block;
+                width: 40%;
+                height: 40px;
+                line-height: 40px;
+                .songClearBtn {
+                    cursor: pointer;
+                    font-size: 20px;
+                    width: 20px;
+                    height: 20px;
+                    position: static;
+                }
+                .songClearText {
+                    margin: 0 10px;
+                }
+            }
+        }
+        .song-ct {
+            height: 300px;
+            border-radius: 8px;
+            border-top-right-radius: 0px;
+            .song-li {
+                padding: 10px 20px;
+                height: 52px;
+                cursor: pointer;
+                border-bottom: 2px solid rgba(0, 88, 223, 0.5);
+                position: relative;
+                .clearSong {
+                    width: 22px;
+                    height: 22px;
+                    position: absolute;
+                    top: 10%;
+                    left: 85%;
+                    &:hover {
+                        &::before,
+                        &::after {
+                            background: #ee5715;
+                        }
+                        &::before {
+                            transform: rotateZ(405deg);
+                        }
+                        &::after {
+                            transform: rotateZ(315deg);
+                        }
+                    }
+                    &::before,
+                    &::after {
+                        content: '';
+                        width: 5px;
+                        height: 20px;
+                        border-radius: 10px;
+                        position: absolute;
+                        top: 50%;
+                        left: 50%;
+                        margin-left: -2.5px;
+                        margin-top: -10px;
+                        background: #FFF;
+                        transition: all 0.8s ease-in-out;
+                    }
+                    &::before {
+                        transform: rotateZ(45deg);
+                    }
+                    &::after {
+                        transform: rotateZ(-45deg);
+                    }
+                }
+                .song-title {
+                    display: block;
+                    width: 70%;
+                    text-overflow: ellipsis;
+                    white-space: nowrap;
+                    color: #0009DF;
+                    margin: 4px 0;
+                }
+                .song-artist {
+                    @extend .song-title;
+                    float: left;
+                    color: #0058DF;
+                }
+                .song-time {
+                    float: right;
+                    color: #0058DF;
+                }
+                &.active {
+                    background: rgba(63, 81, 217, 1);
+                    box-shadow: 0 0 4px 4px rgba(0, 88, 223, 0.5);
+                    transform: perspective(1000px) translateZ(50px);
+                    .song-title {
+                        color: #FFF;
+                        text-shadow: 0 0 2px #FFF;
+                    }
+                    .song-artist {
+                        color: #A6AFEA;
+                        text-shadow: 0 0 2px #A6AFEA;
+                    }
+                    .song-time {
+                        color: #A6AFEA;
+                        text-shadow: 0 0 2px #A6AFEA;
+                    }
+                }
+            }
+        }
+    }
+}
+
+#mes-ct {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    width: 33%;
+    margin-top: 42px;
+    height: 88%;
+    overflow: hidden;
+    transition: all 0.8s ease-in-out;
+    @media screen and (max-width: $m-screen) {
+        & {
+            margin-top: 0px;
+            width: 100%;
+            height: 100%;
+        }
+    }
+    .showMusic {
+        height: 70%;
+        transition: all 1.2s ease-in-out;
+        opacity: 0;
+        z-index: -1;
+        @media screen and (max-width: $m-screen) {
+            & {
+                position: absolute;
+                top: 47px;
+                &.show {
+                    opacity: 1;
+                    z-index: 10;
+                }
+            }
+        }
+    }
+    .con-mes {
+        position: absolute;
+        left: 0px;
+        width: 100%;
+        height: 80%;
+        @media screen and (min-width: $m-screen) {
+            & {
+                height: 100%;
+            }
+        }
+        #disco {
+            width: 100%;
+            height: 100%;
+            .needle {
+                position: absolute;
+                top: -3px;
+                left: 48%;
+                height: 88px;
+                width: 60px;
+                background: url('../img/needle.png') no-repeat center center;
+                background-size: cover;
+                z-index: 2;
+                transition: all 0.5s ease;
+                transform-origin: 12px 0;
+                transform: rotateZ(-25deg);
+                &.active {
+                    transform: rotateZ(0deg);
+                }
+            }
+            .disco {
+                width: 150px;
+                height: 150px;
+                position: absolute;
+                left: 50%;
+                margin-left: -75px;
+                top: 40px;
+                background: url('../img/disco.png') no-repeat center center;
+                background-size: cover;
+                animation: discoRotate 20s linear forwards infinite;
+                @include keyframes(discoRotate) {
+                    0% {
+                        transform: rotateZ(0deg);
+                    }
+                    100% {
+                        transform: rotateZ(360deg);
+                    }
+                }
+                animation-play-state: paused;
+                &.active {
+                    animation-play-state: running;
+                }
+                .disco-cover {
+                    position: absolute;
+                    top: 50%;
+                    left: 50%;
+                    width: 63%;
+                    height: 63%;
+                    margin-top: -31.5%;
+                    margin-left: -31.5%;
+                    border-radius: 50%;
+                    background: #BBDEDF;
+                }
+                .disco-img {
+                    position: absolute;
+                    top: 50%;
+                    left: 50%;
+                    width: 63%;
+                    height: 63%;
+                    margin-top: -31.5%;
+                    margin-left: -31.5%;
+                    border-radius: 50%;
+                }
+                @media screen and (max-width: $m-screen) {
+                    & {
+                        width: 225px;
+                        height: 225px;
+                        margin-left: -112.5px;
+                    }
+                }
+            }
+            @media screen and (max-width: $m-screen) {
+                & {
+                    position: absolute;
+                    top: 47px;
+                    height: 70%;
+                }
+            }
+        }
+        #mes-content {
+            position: absolute;
+            bottom: 10px;
+            width: 100%;
+            text-align: center;
+            .title {
+                margin-bottom: 5px;
+                color: rgba(255, 255, 255, 1);
+                font-size: 20px;
+                letter-spacing: 0.5px;
+                width: 100%;
+                text-overflow: ellipsis;
+            }
+            .artist {
+                color: rgba(255, 255, 255, 0.7);
+                width: 100%;
+                text-overflow: ellipsis;
+            }
+            @media screen and (max-width: $m-screen) {
+                & {
+                    height: 40px;
+                    top: 0px;
+                    text-align: left;
+                    border-bottom: 2px solid rgba(0, 120, 221, 1);
+                    .title {
+                        font-size: 16px;
+                        white-space: nowrap;
+                    }
+                    .artist {
+                        white-space: nowrap;
+                    }
+                    padding-bottom: 5px;
+                }
+            }
+        }
+    }
+    .Musicmenu {
+        display: none;
+        position: absolute;
+        top: 85%;
+        height: 12%;
+        width: 100%;
+        box-sizing: border-box;
+        @media screen and (max-width: $m-screen) {
+            & {
+                display: block;
+            }
+        }
+        .showLyrics {
+            bottom: 10%;
+            right: 20%;
+            font-size: 48px;
+            width: 48px;
+            height: 48px;
+            color: #FFF;
+        }
+        .share {
+            bottom: 7%;
+            left: 20%;
+            width: 36px;
+            height: 36px;
+            text-align: center;
+            line-height: 36px;
+            font-size: 30px;
+            border: 2px solid #FFF;
+            border-radius: 50%;
+            color: #FFF;
+        }
+    }
+}
+
+#footer {
+    padding: 10px;
+    box-shadow: 5px -7px 10px #666;
+    position: relative;
+    min-width: 320px;
+    min-height: 80px;
+     @media screen and (min-width: $m-screen) {
+        & {
+            overflow: hidden;
+        }
+    }
+    @media screen and (min-width: $b-screen) {
+        & #mes-ct {
+            display: none;
+        }
+        &::before {
+            top: -454px;
+        }
+    }
+    @media screen and (min-width: $m-screen) and (max-width: $b-screen) {
+        & #mes-ct {
+            display: block;
+        }
+        &::before {
+            top: -454px;
+        }
+    }
+    @media screen and (max-width: $m-screen) {
+        & #mes-ct {
+            display: none;
+        }
+        & {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            box-sizing: border-box;
+            height: 20%;
+            box-shadow: none;
+        }
+        & #super-min {
+            display: none;
+        }
+    }
+    &.min {
+        #mes-ct {
+            display: block;
+        }
+    }
+    #mes-ct {
+        left: -30px;
+        top: -33px;
+        margin-top: 0;
+        height: 160%;
+        transform: scale(0.5);
+        .min-control {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 111, 204, 0.3);
+            display: none;
+            &.super-min {
+                display: block;
+            }
+            .play-pause {
+                width: 30px;
+                height: 30px;
+                line-height: 20px;
+                font-size: 20px;
+                position: absolute;
+                top: 85%;
+                left: 70%;
+                margin-left: -10px;
+                margin-top: -15px;
+                transform: scale(2);
+                border: 2px solid #0078dd;
+                border-radius: 50%;
+            }
+        }
+        .con-mes {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            .needle {
+                z-index: 1;
+            }
+        }
+        &.super-min {
+            display: inline-block;
+            left: 71%;
+            height: 200%;
+            top: -60px;
+        }
+    }
+    #super-min {
+        background: rgba(110, 126, 234, 1);
+        position: absolute;
+        top: 0px;
+        right: 0px;
+        height: 100%;
+        width: 30px;
+        z-index: 10;
+        box-shadow: 0 0 10px 1px rgba(110, 126, 234, 1);
+        .super-min {
+            font-size: 30px;
+            height: 100%;
+        }
+    }
+    &.super-min {
+        height: 100px;
+    }
+}
+
+#control {
+    position: relative;
+    min-width: 320px;
+    min-height: 80px;
+    background-attachment: fixed;
+    &::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        z-index: 0;
+        background: inherit;
+        margin: -30px;
+        filter: blur(6px) saturate(1.5) brightness(0.7);
+    }
+     @media screen and (min-width: $b-screen) {
+        &::before {
+            top: -434px;
+        }
+    }
+    @media screen and (min-width: $m-screen) and (max-width: $b-screen) {
+        &::before {
+            top: -454px;
+        }
+    }
+     @media screen and (max-width: $m-screen) { 
+        &::before {
+            display: none;
+        }
+     }
+    &.super-min {
+        display: none;
+    }
+    .play-pause {
+        width: 30px;
+        height: 30px;
+        font-size: 30px;
+    }
+    .share {
+        width: 36px;
+        height: 36px;
+        text-align: center;
+        line-height: 36px;
+        font-size: 30px;
+        border: 2px solid #0078dd;
+        border-radius: 50%;
+    }
+    .only {
+        width: 36px;
+        height: 36px;
+    }
+    #show-song {
+        display: none;
+        width: 36px;
+        height: 36px;
+        font-size: 36px;
+    }
+    @media screen and (min-width: $b-screen) {
+        & {
+            height: 70px;
+        }
+        .pre {
+            left: 10px;
+            bottom: 15px;
+        }
+        .play-pause {
+            left: 40px;
+            bottom: 15px;
+        }
+        .next {
+            left: 70px;
+            bottom: 15px;
+        }
+        .loop {
+            right: 270px;
+            bottom: 15px;
+        }
+        .share {
+            right: 220px;
+            bottom: 6px;
+        }
+        .only {
+            right: 180px;
+            bottom: 6px;
+        }
+    }
+    @media screen and (min-width: $m-screen) and (max-width: $b-screen) {
+        & {
+            height: 100px;
+        }
+        .pre {
+            left: 110px;
+            bottom: 10px;
+        }
+        .play-pause {
+            left: 140px;
+            bottom: 10px;
+        }
+        .next {
+            left: 170px;
+            bottom: 10px;
+        }
+        .loop {
+            right: 260px;
+            bottom: 10px;
+        }
+        .share {
+            right: 70px;
+            bottom: 6px;
+        }
+        .only {
+            right: 30px;
+            bottom: 6px;
+        }
+    }
+    @media screen and (max-width: $m-screen) {
+        & {
+            height: 100%;
+            box-sizing: border-box;
+        }
+        .pre {
+            left: 30%;
+            top: 50%;
+            margin-left: -20px;
+            margin-top: -14px;
+        }
+        .play-pause {
+            left: 50%;
+            top: 50%;
+            margin-left: -22px;
+            margin-top: -18px;
+        }
+        .next {
+            left: 70%;
+            top: 50%;
+            margin-left: -20px;
+            margin-top: -14px;
+        }
+        .loop {
+            left: 10%;
+            top: 50%;
+            margin-left: -12.5px;
+            margin-top: -12.5px;
+        }
+        .share {
+            display: none;
+        }
+        .only {
+            display: none;
+        }
+        #super-min {
+            display: none;
+        }
+        #show-song {
+            display: block;
+            right: 10%;
+            top: 50%;
+            margin-top: -24px;
+        }
+    }
+    &.min {
+        height: 100px;
+        .pre {
+            left: 110px;
+            bottom: 10px;
+        }
+        .play-pause {
+            left: 140px;
+            bottom: 10px;
+        }
+        .next {
+            left: 170px;
+            bottom: 10px;
+        }
+        .loop {
+            right: 270px;
+            bottom: 10px;
+        }
+        .share {
+            right: 80px;
+            bottom: 6px;
+        }
+        .only {
+            right: 40px;
+            bottom: 6px;
+        }
+    }
+}
+
+$proH: 6px;
+#progress {
+    font-size: 14px;
+    position: relative;
+    height: 100%;
+    z-index: 2;
+    @media screen and (min-width: $b-screen) {
+        & {
+            margin: 0px 310px 0 110px;
+        }
+    }
+    @media screen and (min-width: $m-screen) and (max-width: $b-screen) {
+        & {
+            margin-right: 30px;
+        }
+    }
+    @media screen and (max-width: $m-screen) {
+        & {
+            margin: 0 20%;
+        }
+    }
+    &.min {
+        margin: 0 30px 0 0;
+    }
+    .pro-mes {
+        .title {
+            color: rgba(255, 255, 255, 1);
+            margin-right: 10px;
+            text-overflow: ellipsis;
+            width: 100%;
+        }
+        .artist {
+            color: rgba(255, 255, 255, 0.7);
+            text-overflow: ellipsis;
+            width: 100%;
+        }
+        position: absolute;
+        @media screen and (min-width: $b-screen) {
+            & {
+                left: -100px;
+                right: -250px;
+            }
+        }
+        @media screen and (min-width: $m-screen) and (max-width: $b-screen) {
+            & {
+                top: 20px;
+                left: 110px;
+                font-size: 14px;
+            }
+            .title {
+                display: block;
+            }
+            .artist {
+                display: block;
+            }
+        }
+        &.min {
+            top: 20px;
+            left: 110px;
+            font-size: 14px;
+            .title {
+                display: block;
+            }
+            .artist {
+                display: block;
+            }
+        }
+        @media screen and (max-width: $m-screen) {
+            & {
+                display: none;
+            }
+        }
+    }
+    .time {
+        display: inline-block;
+        position: absolute;
+        right: 0;
+        bottom: 40px;
+        height: 15px;
+        color: rgba(255, 255, 255, 1);
+        @media screen and (min-width: $m-screen) and (max-width: $b-screen) {
+            & {
+                top: 10px;
+            }
+        }
+        @media screen and (max-width: $m-screen) {
+            & {
+                display: none;
+            }
+        }
+        &.min {
+            top: 20px;
+        }
+        .duration {
+            color: rgba(255, 255, 255, 0.7);
+        }
+        .currentTime {
+            color: rgba(255, 255, 255, 1);
+        }
+    }
+    .min.duration,
+    .min.currentTime {
+        display: none;
+        font-weight: bold;
+        font-size: 16px;
+        position: absolute;
+        top: 4px;
+        color: rgba(255, 255, 255, 0.8);
+        text-shadow: 0 0 4px rgba(255, 255, 255, 0.5);
+        @media screen and (max-width: $m-screen) {
+            & {
+                display: inline-block;
+            }
+        }
+
+    }
+    .min.duration {     
+        left: -64px;
+    }
+    .min.currentTime {
+        right: -60px;
+    }
+    .progress {
+        height: $proH;
+        width: 100%;
+        border-radius: 5px;
+        margin: 10px 0;
+        background: rgba(109, 58, 255, 1);
+        font-size: 0;
+        cursor: pointer;
+        position: absolute;
+        @media screen and (min-width: $b-screen) {
+            & {
+                top: 40px;
+            }
+        }
+        @media screen and (min-width: $m-screen) and (max-width: $b-screen) {
+            & {
+                top: -8px;
+                margin-top: 10px;
+                width: 104%;
+                left: -10px;
+            }
+        }
+        @media screen and (max-width: $m-screen) {
+            & {
+                left: 0px;
+            }
+        }
+        .meter {
+            display: inline-block;
+            height: $proH;
+            width: 0;
+            border-radius: 5px;
+            background: rgba(0, 111, 248, 1);
+            background-image: linear-gradient(left, #9A77FF, #007AFF);
+            box-shadow: 0 0 5px rgba(255, 255, 255, 1);
+        }
+        &.min {
+            top: -8px;
+            margin-top: 10px;
+            width: 104%;
+            left: -10px;
+            .meter {
+                &::before {
+                    left: -5px;
+                    width: 0px;
+                    box-shadow: 0 0 0 4px #73C8E6;
+                }
+            }
+        }
+        .meterPoint {
+            display: block;
+            height: $proH*3;
+            width: $proH*3;
+            border-radius: 50%;
+            border: 5px solid rgba(0, 111, 248, 0.5);
+            box-shadow: 0 0 10px rgba(255, 255, 255, 1);
+            background: rgba(0, 111, 248, 1);
+            background-clip: padding-box;
+            position: absolute;
+            top: -160%;
+            margin-left: -$proH*2;
+        }
+    }
+}
+
+$volH: 6px;
+$volW: 100px;
+#volume {
+    display: inline-block;
+    margin: 2px 0;
+    position: absolute;
+    z-index: 10;
+    @media screen and (min-width: $b-screen) {
+        & {
+            right: 40px;
+            bottom: 15px;
+        }
+    }
+    @media screen and (min-width: $m-screen) and (max-width: $b-screen) {
+        & {
+            right: 120px;
+            bottom: 10px;
+        }
+    }
+    @media screen and (max-width: $m-screen) {
+        & {
+            left: 10%;
+            bottom: 0px;
+            width: 80%;
+        }
+    }
+    &.min {
+        right: 130px;
+        bottom: 10px;
+    }
+    .mute {
+        display: inline-block;
+        vertical-align: middle;
+        width: 26px;
+        height: 21px;
+        line-height: 10px;
+        text-align: center;
+        background-position: 0 -144px;
+        cursor: pointer;
+        position: relative;
+        z-index: 10;
+        &.unmute {
+            background-position: 0 -182px;
+        }
+    }
+    .volume {
+        display: inline-block;
+        height: $volH;
+        width: $volW;
+        border-radius: 5px;
+        margin: 5px 0;
+        background: rgba(82, 102, 234, 1);
+        font-size: 0;
+        cursor: pointer;
+        position: relative;
+        @media screen and (max-width: $m-screen) {
+            & {
+                width: 80%;
+            }
+        }
+        .sound {
+            display: inline-block;
+            height: $volH;
+            width: 0;
+            border-radius: 5px;
+            background: rgba(0, 111, 248, 1);
+            background-image: linear-gradient(left, #CA9AFF, #007AFF);
+            box-shadow: 0 0 5px rgba(255, 255, 255, 1);
+        }
+        .soundPoint {
+            display: block;
+            height: $volH*3;
+            width: $volH*3;
+            border-radius: 50%;
+            border: 5px solid rgba(0, 111, 248, 0.5);
+            box-shadow: 0 0 10px rgba(255, 255, 255, 1);
+            background: rgba(0, 111, 248, 1);
+            background-clip: padding-box;
+            position: absolute;
+            top: -180%;
+            margin-left: -$volH*2;
+        }
+    }
+}

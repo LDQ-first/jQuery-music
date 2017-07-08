@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+    .show {
+        width: 600px;
+        height: 300px;
+        margin: 200px auto;
+        border: 2px solid red;
+    }
+    </style>
+</head>
+
+<body>
+    <audio src="music/The Show.mp3" controls ossorigin="anonymous"></audio>
+    <!-- <audio src="http://yinyueshiting.baidu.com/data2/music/41564912/11744001492383661128.mp3?xcode=bd2638bfb9d8742c6f333bb99c6701d9" controls  ossorigin="anonymous"></audio> -->
+    <!-- <audio src="http://m6.file.xiami.com/177/2177/2100391242/1776422243_1474688173785.mp3?auth_key=315bfe388b018292df7f784c65df1e0d-1477018800-0-null" controls></audio> -->
+    <div class="show">
+        <canvas id="canvasVoice" class="canvas" width="600" height="300"></canvas>
+    </div>
+    <script src="jquery-3.1.1.min.js"></script>
+    <script>
+    var analyserMus = function() {
+        //音频文件接口：用来监听音乐的播放
+        window.AudioContext = window.AudioContext || window.webkitAudioContext || window.mozAudioContext;
+        //请求动画帧
+        window.requestAnimationFrame =
+            window.requestAnimationFrame ||
+            window.webkitRequestAnimationFrame ||
+            window.mozRequestAnimationFrame ||
+            window.msRequestAnimationFrame;
+        // var $audio = $("audio");
+        var $audio = document.querySelector('audio');
+
+
+        var actx = new AudioContext(); //创建一个音乐对象
+        // 创建一个音频节点
+        var analyser = actx.createAnalyser();
+        //创建音乐媒体源节点
+        var audioSrc = actx.createMediaElementSource($audio);
+        //将媒体源节点与分析机制链接
+        audioSrc.connect(analyser);
+        //将分析机制与目标点链接（扬声器）
+        analyser.connect(actx.destination);
+
+        var num = 100;
+        var can = document.querySelector("#canvasVoice");
+        var cxt = can.getContext('2d');
+        var color = cxt.createLinearGradient(can.width * 0.5, 0, can.width * 0.5, 150);
+        color.addColorStop(0, "#00f");
+        color.addColorStop(0.5, "#f00");
+        color.addColorStop(1, "#0f0");
+
+        var colorf = cxt.createLinearGradient(can.width * .5,
+            150, can.width * .5, 250);
+        colorf.addColorStop(0, "#0f0");
+        colorf.addColorStop(0.5, "#f00");
+        colorf.addColorStop(1, "#00f");
+        draw();
+
+        function draw() {
+            //创建一个与音乐频次等长的数组 【自动转换为0-255之间的数子】
+            var voicehigh = new Uint8Array(analyser.frequencyBinCount);
+            //将分析出来的音频数据添加到数组里面
+            analyser.getByteFrequencyData(voicehigh);
+            console.log(voicehigh);
+            var step = Math.round(voicehigh.length / num);
+            cxt.clearRect(0, 0, can.width, can.height);
+            cxt.globalAlpha = 0.3; //透明度
+            cxt.beginPath();
+            for (var i = 0; i < num; i++) {
+                var value = (voicehigh[step * i]) / 2;
+                cxt.fillStyle = color;
+                cxt.fillRect(i * 10 + can.width * 0.5, 150, 7, -value + 1);
+                cxt.fillRect(can.width * 0.5 - (i - 1) * 10, 150, 7, -value + 1);
+                cxt.fillStyle = colorf;
+                cxt.fillRect(i * 10 + can.width * 0.5, 150, 7, value + 1);
+                cxt.fillRect(can.width * 0.5 - (i - 1) * 10, 150, 7, value + 1);
+            }
+            cxt.closePath();
+            requestAnimationFrame(draw);
+
+        }
+    }
+    analyserMus();
+    
+    </script>
+</body>
+
+</html>
