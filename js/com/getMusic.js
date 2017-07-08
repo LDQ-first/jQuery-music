@@ -9,7 +9,8 @@ var getMusic = (function() {
     function channel() {
 
         $.ajax({
-            url: 'http://api.jirengu.com/fm/getChannels.php',
+            /*url: 'http://api.jirengu.com/fm/getChannels.php',*/
+            url: 'https://jirenguapi.applinzi.com/fm/getChannels.php',
             dataType: 'jsonp',
             Method: 'get',
             success: function(ret) {
@@ -337,7 +338,7 @@ var getMusic = (function() {
             return;
         }
         $.get(
-                'http://tingapi.ting.baidu.com/v1/restserver/ting', {
+                'https://tingapi.ting.baidu.com/v1/restserver/ting', {
                     method: 'baidu.ting.search.common',
                     query: query,
                     page_size: 1,
@@ -415,7 +416,7 @@ var getMusic = (function() {
 
     function playSearchSong(sid, title, artist) {
         $.ajax({
-            url: 'http://music.baidu.com/data/music/links',
+            url: 'https://music.baidu.com/data/music/links',
             dataType: 'jsonp',
             method: 'get',
             data: {
@@ -457,7 +458,8 @@ var getMusic = (function() {
 
     function song(songChannel, def) {
         $.ajax({
-            url: 'http://api.jirengu.com/fm/getSong.php',
+           /* url: 'http://api.jirengu.com/fm/getSong.php',*/
+            url: 'https://jirenguapi.applinzi.com/fm/getSong.php',
             dataType: 'jsonp',
             method: 'get',
             data: {
@@ -524,8 +526,10 @@ var getMusic = (function() {
 
     function lyric() {
         var sid = $('#music').attr('sid');
-
-        $.post('http://api.jirengu.com/fm/getLyric.php', {
+        $.post(
+            /*'http://api.jirengu.com/fm/getLyric.php',*/
+            'https://jirenguapi.applinzi.com/fm/getLyric.php',
+             {
                 sid: sid
             })
             .done(function(ret) {
