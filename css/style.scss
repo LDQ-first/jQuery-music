@@ -45,7 +45,7 @@ button {
 input {
     border: none;
 }
-
+ 
 input::-webkit-input-placeholder,
 textarea::-webkit-input-placeholder {
     color: #FFF;
@@ -110,29 +110,6 @@ body {
 #music {
     display: none;
 }
-
-
-/* #Player {
-    position: fixed;
-    bottom: 30px;
-    z-index: 20;
-    border: 2px solid red;
-    overflow: hidden;
-    @media screen and (min-width: $b-screen) {
-        & {
-            width: 550px;
-            height: 544px;
-        }
-    }
-    @media screen and (min-width: $m-screen) and (max-width: $b-screen) {
-        & {
-            width: 510px;
-            height: 574px;
-        }
-    }
-    
-} */
-
 
 #musicPlayer {
     position: fixed;
@@ -531,13 +508,6 @@ body {
         }
     }
     .visualization {
-        /*   position: absolute;
-        right: 0px;
-        bottom: 
-        border: 2px solid red;
-        width: 300px;
-        height: 340px;
-        overflow: hidden; */
         display: none;
         border: 2px solid red;
     }
@@ -724,9 +694,6 @@ body {
             background: #AD5FFF;
             border-top-left-radius: 8px;
             .songNum {
-                // display: inline-block;
-                // width: 40%;
-                //  height: 100%;
                 margin-right: 10px;
             }
             .songClear {

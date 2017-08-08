@@ -338,7 +338,7 @@ var getMusic = (function() {
             return;
         }
         $.get(
-                'https://tingapi.ting.baidu.com/v1/restserver/ting', {
+                'http://tingapi.ting.baidu.com/v1/restserver/ting', {
                     method: 'baidu.ting.search.common',
                     query: query,
                     page_size: 1,

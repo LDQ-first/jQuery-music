@@ -19,6 +19,7 @@ module.exports = {
             jQuery: 'jquery',
             'window.jquery': 'jquery'
         }),
+        new webpack.optimize.UglifyJsPlugin()
     ]
 
 }
