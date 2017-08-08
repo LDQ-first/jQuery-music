@@ -338,15 +338,17 @@ var getMusic = (function() {
             return;
         }
         $.get(
-                'http://tingapi.ting.baidu.com/v1/restserver/ting', {
+                'https://bird.ioliu.cn/v1?url=http://tingapi.ting.baidu.com/v1/restserver/ting', {
                     method: 'baidu.ting.search.common',
                     query: query,
                     page_size: 1,
                     page_no: 1
                 },
                 function(ret) {
+                    console.log( JSON.parse(ret.replace('/**/', '').replace(/.*[\(]/, '').replace(/[\)];/,'')));
+                    var ret = JSON.parse(ret.replace('/**/', '').replace(/.*[\(]/, '').replace(/[\)];/,''))
                     var song = ret.song_list[0];
-                    console.log(song);
+                    
                     if (!song) {
                         $('.search-ct').addClass('search');
                         $('.SongResult').text('抱歉，找不到！');
